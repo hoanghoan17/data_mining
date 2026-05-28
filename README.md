@@ -1,60 +1,44 @@
 # 🍳 Smart Recipe Recommendation System
 
-Hệ thống gợi ý món ăn cá nhân hóa dựa trên nguyên liệu có sẵn, sử dụng Content-Based Filtering + FP-Growth + KMeans.
+Hệ thống gợi ý món ăn cá nhân hóa dựa trên nguyên liệu bạn có sẵn.
 
-## 🎯 Tính năng
+## 📖 Giới thiệu
 
-- 🔍 Gợi ý món ăn từ nguyên liệu người dùng có sẵn
-- 🤖 Cá nhân hóa theo lịch sử "thích" của user (User History Vector)
-- 💡 Giải thích lý do gợi ý (Explainable AI với FP-Growth rules)
-- 🎨 Phân cụm món ăn (KMeans) để khám phá theo nhóm
-- ⚡ Tìm kiếm tốc độ cao bằng FAISS
-- 📊 Autocomplete nguyên liệu real-time
+Bạn mở tủ lạnh thấy có trứng, cà chua, hành — không biết nấu gì? Project này giải quyết đúng vấn đề đó.
 
-## 🏗️ Kiến trúc
-- Frontend (HTML/CSS/JS)
-- HTTP Backend (FastAPI)
-- Recommendation Engine (TF-IDF + SVD + FAISS + FP-Growth + KMeans)
-- SQLite Database (User, Interactions, Logs)
+Nhập nguyên liệu bạn có → AI gợi ý món ngon phù hợp nhất, kèm giải thích lý do và danh sách nguyên liệu còn thiếu.
 
+## ✨ Tính năng chính
+
+- 🔍 Gợi ý món ăn theo nguyên liệu sẵn có
+- 🤖 Cá nhân hóa theo lịch sử yêu thích của user
+- 💡 Giải thích lý do gợi ý (Explainable AI)
+- 🎨 Khám phá món ăn theo 20 nhóm tương đồng
+- ⚡ Autocomplete nguyên liệu real-time
 
 ## 🛠️ Công nghệ
 
-- **Backend:** Python, FastAPI, Uvicorn, Pydantic
-- **ML/Data:** pandas, scikit-learn, mlxtend, FAISS, numpy
-- **Database:** SQLite (SQLAlchemy ORM)
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript
+**Backend:** Python, FastAPI, scikit-learn, FAISS, mlxtend, SQLite
+**Frontend:** HTML, CSS, Vanilla JavaScript
+**Dataset:** [Food.com - 230K recipes, 1.1M interactions](https://www.kaggle.com/datasets/shuyangli94/food-com-recipes-and-user-interactions)
 
-## 📦 Cài đặt
+## 🚀 Chạy thử
 
-### Yêu cầu
-- Python 3.10+
-- 4GB RAM (để load model)
-
-### Bước 1: Clone repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/recipe-recsys.git
-cd recipe-recsys
-```
-### Bước 2: Cài thư viện
-```bash
+# 1. Cài thư viện
 pip install -r requirements.txt
+
+# 2. Tải dataset Kaggle vào thư mục data/raw/
+#    (RAW_recipes.csv, RAW_interactions.csv, ingr_map.pkl)
+
+# 3. Chạy lần lượt
+python run_phase1_data.py      # Xử lý data + train model
+python run_phase4_db_init.py   # Khởi tạo database
+python run_phase3_api.py       # Khởi động server
+
+# 4. Mở http://localhost:8000/
 ```
-### Bước 3: Tải dataset Kaggle
-Tải 3 file từ Food.com Dataset và đặt vào data/raw/:
-- RAW_recipes.csv
-- RAW_interactions.csv
-- ingr_map.pkl
 
-### Bước 4: Chạy các phase theo thứ tự
-# Phase 1: Xử lý data và train model (~10 phút)
-python run_phase1_data.py
+## 📄 License
 
-# Phase 4: Khởi tạo database
-python run_phase4_db_init.py
-
-# Phase 3: Chạy API server
-python run_phase3_api.py
-
-### Bước 5: Mở trình duyệt
-Truy cập: http://localhost:8000/
+MIT
